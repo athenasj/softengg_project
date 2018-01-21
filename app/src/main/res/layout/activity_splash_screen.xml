@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/screen_splash_nexus"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/splash_symbols"
+        android:layout_marginTop="340dp"
+        android:layout_marginLeft="300dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/splash_plus"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/icon_plus"
+
+            />
+
+        <ImageView
+            android:id="@+id/splas_minus"
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/icon_minus" />
+    </LinearLayout>
+
+
+
+</RelativeLayout>
