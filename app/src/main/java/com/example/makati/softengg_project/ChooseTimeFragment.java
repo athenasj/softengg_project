@@ -20,6 +20,8 @@ public class ChooseTimeFragment extends Fragment {
     ImageButton submit_add;
 
     private static String operation;
+    private static int timer = 30;
+    private static boolean isP1Done = false;
 
     private static int[] firstdigits = new int[100];
     private static int[] seconddigits = new int[100];
@@ -29,7 +31,6 @@ public class ChooseTimeFragment extends Fragment {
     double randNum1, randNum2;
     double rNum1, rNum2;
 
-    private static int timer = 30;
 
     public  ChooseTimeFragment() {
         // Required empty public constructor
@@ -55,6 +56,8 @@ public class ChooseTimeFragment extends Fragment {
     public static int[] getPlusAnswers() { return answersPlus; }
     public static int[] getSubAnswers() { return answersSub; }
     public static String passOperation(){ return operation;}
+    public static boolean getP1Status(){ return isP1Done;}
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,94 +72,43 @@ public class ChooseTimeFragment extends Fragment {
         submit_sub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int selectedTime = timer_group.getCheckedRadioButtonId();
-                selected_timer = rootView .findViewById(selectedTime);
-                String selection = selected_timer.getText().toString();
                 operation = "-";
-                if(selection.equalsIgnoreCase("30 SECONDS") ){
-                    timer = 30;
-//                    Toast.makeText(getActivity(), selected_timer.getText() + " 30SECS", Toast.LENGTH_SHORT).show();
-                }
-                else if(selection.equalsIgnoreCase("45 SECONDS")){
-                    timer = 45;
-                }
-                else if(selection.equalsIgnoreCase("60 SECONDS")){
-                    timer = 60;
-                }
-                else {
-                    Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
-                }
-                ReadyFragment toReadyPage = new ReadyFragment();
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container,  toReadyPage);
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });
-
-        submit_sub.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int selectedTime = timer_group.getCheckedRadioButtonId();
-                selected_timer = rootView .findViewById(selectedTime);
-                String selection = selected_timer.getText().toString();
-                operation = "-";
-                if(selection.equalsIgnoreCase("30 SECONDS") ){
-                    timer = 30;
-//                    Toast.makeText(getActivity(), selected_timer.getText() + " 30SECS", Toast.LENGTH_SHORT).show();
-                }
-                else if(selection.equalsIgnoreCase("45 SECONDS")){
-                    timer = 45;
-                }
-                else if(selection.equalsIgnoreCase("60 SECONDS")){
-                    timer = 60;
-                }
-                else {
-                    Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
-                }
-                ReadyFragment toReadyPage = new ReadyFragment();
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container,  toReadyPage);
-                transaction.addToBackStack(null);
-                transaction.commit();
+                settingTimer(rootView);
             }
         });
 
         submit_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int selectedTime = timer_group.getCheckedRadioButtonId();
-                selected_timer = rootView .findViewById(selectedTime);
-                String selection = selected_timer.getText().toString();
                 operation = "+";
-                if(selection.equalsIgnoreCase("30 SECONDS") ){
-                    timer = 30;
-//                    Toast.makeText(getActivity(), selected_timer.getText() + " 30SECS", Toast.LENGTH_SHORT).show();
-                }
-                else if(selection.equalsIgnoreCase("45 SECONDS")){
-                    timer = 45;
-                }
-                else if(selection.equalsIgnoreCase("60 SECONDS")){
-                    timer = 60;
-                }
-                else {
-                    Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
-                }
-                ReadyFragment toReadyPage = new ReadyFragment();
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container,  toReadyPage);
-                transaction.addToBackStack(null);
-                transaction.commit();
+                settingTimer(rootView);
             }
         });
 
-
-//        for(int l = 0; l < firstdigits.length; l++){
-//            Toast.makeText(getActivity(), String.valueOf(firstdigits[l]) + " + " + String.valueOf(seconddigits[l]) , Toast.LENGTH_SHORT).show();
-//        }
-
-
-
         return rootView;
+    }
+
+    private void settingTimer(View rootView) {
+        int selectedTime = timer_group.getCheckedRadioButtonId();
+        selected_timer = rootView .findViewById(selectedTime);
+        String selection = selected_timer.getText().toString();
+
+        if(selection.equalsIgnoreCase("30 SECONDS") ){
+            timer = 30;
+        }
+        else if(selection.equalsIgnoreCase("45 SECONDS")){
+            timer = 45;
+        }
+        else if(selection.equalsIgnoreCase("60 SECONDS")){
+            timer = 60;
+        }
+        else {
+            Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+        }
+        ReadyFragment toReadyPage = new ReadyFragment();
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container,  toReadyPage);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }

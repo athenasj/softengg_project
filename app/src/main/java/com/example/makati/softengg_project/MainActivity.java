@@ -19,16 +19,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onSelectFragment(View v) { //this function of code switches between fragments by using button ids
-        final ChooseTimeFragment newFragment;
         final ResultOneFragment toNextPlayer;
 
-        if (v == findViewById(R.id.btn_solo)) {
-            newFragment = new ChooseTimeFragment();
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragment_container, newFragment);
-            transaction.addToBackStack(null);
-            transaction.commit();
-        } else if (v == findViewById(R.id.btn_player2Now)) {
+         if (v == findViewById(R.id.btn_player2Now)) {
             toNextPlayer = new ResultOneFragment();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.fragment_container, toNextPlayer);

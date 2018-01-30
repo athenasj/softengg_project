@@ -17,11 +17,39 @@
         app:layout_constraintGuide_percent="0.20" />
 
     <android.support.constraint.Guideline
+        android:id="@+id/guide_icon1h"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.08" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guide_icon2h"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.82" />
+
+    <android.support.constraint.Guideline
         android:id="@+id/guide_choosetimer2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.20" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guide_icon1v"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.50" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guide_icon2v"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.08" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -51,7 +79,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="30 SECONDS"
-        android:textSize="25dp"
+        android:textSize="28dp"
         android:layout_marginTop="100dp"
             android:textColor="@color/radioTint"
             android:buttonTint="@color/radioTint"
@@ -63,7 +91,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="45 SECONDS"
-            android:textSize="25dp"
+            android:textSize="28dp"
             android:textColor="@color/radioTint"
             android:layout_marginTop="50dp"
             android:buttonTint="@color/radioTint"
@@ -75,7 +103,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="60 SECONDS"
-            android:textSize="25dp"
+            android:textSize="28dp"
             android:textColor="@color/radioTint"
             android:layout_marginTop="50dp"
             android:buttonTint="@color/radioTint"
@@ -107,6 +135,36 @@
         android:layout_marginBottom="40dp"
         app:layout_constraintLeft_toRightOf="@+id/submit_add"
         android:layout_marginLeft="0dp" />
+
+    <ImageView
+        android:id="@+id/icon_gem"
+        android:layout_width="190dp"
+        android:layout_height="190dp"
+        app:srcCompat="@drawable/icon_gem"
+        app:layout_constraintTop_toTopOf="@+id/guide_icon1h"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/guide_icon1v" />
+
+    <ImageView
+        android:id="@+id/icon_spark"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        app:srcCompat="@drawable/icon_spark"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/guide_icon2h"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/guide_icon2v" />
+
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/caption_choosetimer"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="40dp" />
 
 
 </android.support.constraint.ConstraintLayout>

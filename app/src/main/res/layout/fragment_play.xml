@@ -56,19 +56,6 @@
         <!--android:layout_marginTop="8dp"-->
         <!--app:layout_constraintTop_toBottomOf="@+id/textView" />-->
 
-    <Button
-        android:id="@+id/btn_nextproblem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Next"
-        android:layout_marginRight="0dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginLeft="0dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="-10dp"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
-
-
 
     <ImageView
         android:id="@+id/imageView4"
@@ -165,6 +152,21 @@
         android:textColor="@color/probText"
         android:textSize="50dp"
         />
+
+    <ImageButton
+        android:id="@+id/btn_nextproblem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/btn_next_selector"
+        android:background="#0000"
+        android:layout_marginRight="0dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="60dp"
+        app:layout_constraintTop_toBottomOf="@+id/answer_field" />
+
+
 
 
 </android.support.constraint.ConstraintLayout>

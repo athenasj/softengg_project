@@ -83,16 +83,15 @@
    >
 
         <ImageButton
-            android:id="@+id/btn_solo"
+            android:id="@+id/submit_solo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="onSelectFragment"
             android:background="#0000"
             app:srcCompat="@drawable/btn_solo_selector"
             android:layout_marginTop="10dp" />
 
         <ImageButton
-            android:id="@+id/btn_multi"
+            android:id="@+id/submit_multi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#0000"
