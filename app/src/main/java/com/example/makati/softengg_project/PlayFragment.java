@@ -41,7 +41,9 @@ public class PlayFragment extends Fragment {
     int[] givenSecondDigits = new int[100] ;
     int[] givenPlusAns = new int[100] ;
     int[] givenSubAns = new int[100] ;
+
     int[] finalAns = new int[100] ;
+
 
 
     public static ArrayList<Integer> ans_playerone = new ArrayList<Integer>(); //Player's One
@@ -53,6 +55,8 @@ public class PlayFragment extends Fragment {
     public static ArrayList<String> passStrAnswerOne(){ return strAnsOne; }
     public static int passScoreOne(){ return scorePlayerOne; }
     public static boolean getP1Done(){ return p1FinallyDone; }
+    CountDownTimer countitdown;
+    Boolean homePress = false;
 
     public PlayFragment() {
         // Required empty public constructor
@@ -88,37 +92,41 @@ public class PlayFragment extends Fragment {
         finalTime = selectedTime * 1000;
 
         //finalTime = 3000; //comment later
-        new CountDownTimer(finalTime,200){
+        countitdown = new CountDownTimer(finalTime,200){
             public void onTick(long millisUntilFinished){
                 timetext.setText(String.valueOf((int) (millisUntilFinished / 1000)));
             }
 
             @Override
             public void onFinish() {
-                if(passedIsMulti){
+                    try{
+                        if (passedIsMulti) {
 
+                            if (p1FinallyDone) {
+                                TimeoutFragment toTimeOut = new TimeoutFragment();
+                                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                                transaction.replace(R.id.fragment_container, toTimeOut);
+                                transaction.commit();
+                            } else {
+                                p1FinallyDone = true;
 
-                    if(p1FinallyDone){
-                        TimeoutFragment toTimeOut = new TimeoutFragment();
-                        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                        transaction.replace(R.id.fragment_container,  toTimeOut);
-                        transaction.addToBackStack(null);
-                        transaction.commit();
-                    }else
-                    {   p1FinallyDone = true;
+                                ReadyFragment toSecondReadyFrag = new ReadyFragment();
+                                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                                transaction.replace(R.id.fragment_container, toSecondReadyFrag);
+                                transaction.commit();
+                            }
+                        } else {
 
-                        ReadyFragment toSecondReadyFrag = new ReadyFragment();
-                        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                        transaction.replace(R.id.fragment_container,  toSecondReadyFrag);
-                        transaction.addToBackStack(null);
-                        transaction.commit();}
-                }
-                else{
-                    TimeoutFragment toTimeOut = new TimeoutFragment();
-                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                    transaction.replace(R.id.fragment_container,  toTimeOut);
-                    transaction.addToBackStack(null);
-                    transaction.commit();
+                                TimeoutFragment toTimeOut = new TimeoutFragment();
+                                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                                transaction.replace(R.id.fragment_container, toTimeOut);
+                                /*transaction.addToBackStack(null);*/
+                                transaction.commit();
+                            }
+
+                }catch (Exception e) {
+                    Log.e("Error", e.toString());
+                    homePress = true;
                 }
             }
         }.start();
@@ -145,6 +153,26 @@ public class PlayFragment extends Fragment {
                     return false;
             }
         });
+
+
+        //Back - Player will be unable to go back while playing
+        rootView.setFocusableInTouchMode(true);
+        rootView.requestFocus();
+        rootView.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                Log.i("Backpress", "keyCode: " + keyCode);
+                if( keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
+                    Log.i("Backpress", "onKey Back listener is working!!!");
+                    //getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                    return true;
+                }
+                return false;
+            }
+        });
+
+
+
 
         return rootView;
 
@@ -190,5 +218,20 @@ public class PlayFragment extends Fragment {
             nextquestion = false;
         }
     }
+
+
+    //When home is pressed and app is reopened
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (homePress)
+        {
+            ReadyFragment fragment = new ReadyFragment(); //this block set which fragment should load initially
+            android.support.v4.app.FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, fragment); //use fragment_container to show fragments/pages
+            fragmentTransaction.commit();
+        }
+    }
+
 
 }

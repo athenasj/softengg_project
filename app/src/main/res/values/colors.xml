@@ -5,4 +5,6 @@
     <color name="colorAccent">#FF4081</color>
     <color name="radioTint">#44c6e1</color>
     <color name="probText">#777777</color>
+    <color name="scoreboardBG">#eeeeee</color>
+    <color name="wite">#ffffff</color>
 </resources>
