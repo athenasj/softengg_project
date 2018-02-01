@@ -33,6 +33,7 @@ public class PlayFragment extends Fragment {
     boolean passedIsMulti = false;
     boolean isP1Done;
     String strContainer = " " ;
+    String strContainerTwo = " " ;
     String mark = " " ;
 
     String passedOperation = " " ;
@@ -49,23 +50,33 @@ public class PlayFragment extends Fragment {
     public static ArrayList<Integer> ans_playerone = new ArrayList<Integer>(); //Player's One
     public static ArrayList<String> strAnsOne = new ArrayList<String>(); // Shows the question and user's answer on a ListView
 
+    public static ArrayList<Integer> ans_playertwo = new ArrayList<Integer>(); //Player's One
+    public static ArrayList<String> strAnsTwo = new ArrayList<String>(); // Shows the question and user's answer on a ListView
+
     private static int scorePlayerOne = 0;
+    private static int scorePlayerTwo = 0;
     private static boolean p1FinallyDone;
 
     public static ArrayList<String> passStrAnswerOne(){ return strAnsOne; }
+    public static ArrayList<String> passStrAnswerTwo(){ return strAnsTwo; }
+
     public static int passScoreOne(){ return scorePlayerOne; }
     public static boolean getP1Done(){ return p1FinallyDone; }
+
     CountDownTimer countitdown;
     Boolean homePress = false;
 
     public PlayFragment() {
-        // Required empty public constructor
+
+        // Getting from other classes
         selectedTime = ChooseTimeFragment.TimeSelected();
         givenFirstDigits = ChooseTimeFragment.getFirstDigits();
         givenSecondDigits = ChooseTimeFragment.getSecondDigits();
         passedOperation = ChooseTimeFragment.passOperation();
         givenPlusAns = ChooseTimeFragment.getPlusAnswers();
         givenSubAns = ChooseTimeFragment.getSubAnswers();
+
+        // Passing to other classes
         passedIsMulti = LandingFragment.passIsMultiplayer();
         isP1Done = ChooseTimeFragment.getP1Status();
     }
@@ -103,9 +114,10 @@ public class PlayFragment extends Fragment {
                         if (passedIsMulti) {
 
                             if (p1FinallyDone) {
-                                TimeoutFragment toTimeOut = new TimeoutFragment();
+                                compareAnswers();
+                                TimeoutTwoFragment toTimeOutTwo = new TimeoutTwoFragment();
                                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                                transaction.replace(R.id.fragment_container, toTimeOut);
+                                transaction.replace(R.id.fragment_container, toTimeOutTwo);
                                 transaction.commit();
                             } else {
                                 p1FinallyDone = true;
@@ -124,7 +136,7 @@ public class PlayFragment extends Fragment {
                                 transaction.commit();
                             }
 
-                }catch (Exception e) {
+                }catch (IllegalStateException e) {
                     Log.e("Error", e.toString());
                     homePress = true;
                 }
@@ -140,7 +152,7 @@ public class PlayFragment extends Fragment {
         btn_nextproblem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                nextQuestion();
+                    nextQuestion();
             }
         });
 
@@ -148,11 +160,13 @@ public class PlayFragment extends Fragment {
             @Override
                     public boolean onEditorAction(TextView v, int actionId, KeyEvent event){
                     if(actionId == EditorInfo.IME_ACTION_DONE){
-                        nextQuestion();
+                            nextQuestion();
                     }
                     return false;
             }
         });
+
+
 
 
         //Back - Player will be unable to go back while playing
@@ -195,17 +209,17 @@ public class PlayFragment extends Fragment {
             answer_field.setText("");
 
             if(nextquestion){
-                if(finalAns[counter] == answer){
-                    mark = "/";
-                    scorePlayerOne++;
+                whatMark();
+                counter++;
+                if(!p1FinallyDone){
+                    strContainer = String.valueOf(givenSecondDigits[counter]) + " " + passedOperation + " " + String.valueOf(givenFirstDigits[counter] + " = " + String.valueOf(answer) + " Correct Answer: " + String.valueOf(finalAns[counter]) + "   " + mark);
+                    ans_playerone.add(answer);
+                    strAnsOne.add(strContainer);
                 }
                 else{
-                    mark = "x";
+                    ans_playertwo.add(answer);
                 }
-                strContainer = String.valueOf(givenSecondDigits[counter]) + " " + passedOperation + " " + String.valueOf(givenFirstDigits[counter] + " = " + String.valueOf(answer) + " Correct Answer: " + String.valueOf(finalAns[counter]) + "   " + mark);
-                counter++;
-                ans_playerone.add(answer);
-                strAnsOne.add(strContainer);
+
                 item_counter.setText(String.valueOf(counter+1));
             }
             textview_firstdigit.setText(String.valueOf(givenFirstDigits[counter]));
@@ -219,6 +233,54 @@ public class PlayFragment extends Fragment {
         }
     }
 
+    private void whatMark() {
+        if(finalAns[counter] == answer){
+            mark = "/";
+            if(!p1FinallyDone){
+                scorePlayerOne++;
+            }
+            else{
+                scorePlayerTwo++;
+            }
+        }
+        else{
+            mark = "x";
+        }
+    }
+
+    private void compareAnswers(){
+        int moreAnswers = 0;
+        String firstAns = " ";
+        String secondAns = " ";
+
+        if(ans_playerone.size() > ans_playertwo.size()){
+            moreAnswers = ans_playerone.size();
+        }
+        else{
+            moreAnswers = ans_playertwo.size();
+        }
+
+        Log.e("moreAnswers", String.valueOf(moreAnswers));
+        for(int i = 0; i < moreAnswers; i++){
+            try {
+                firstAns = String.valueOf(ans_playerone.get(i));
+            }catch (IndexOutOfBoundsException e)
+            {
+                firstAns = "No Answer";
+            }
+
+            try{
+                secondAns = String.valueOf(ans_playertwo.get(i));
+            }
+            catch (IndexOutOfBoundsException e){
+                secondAns = "No Answer";
+            }
+
+
+            strContainerTwo = String.valueOf(givenSecondDigits[i]) + " " + passedOperation + " " + String.valueOf(givenFirstDigits[i] + " = " + finalAns[i] + " P1: " + firstAns + " P2: " + secondAns);
+            strAnsTwo.add(strContainerTwo);
+        }
+    }
 
     //When home is pressed and app is reopened
     @Override
