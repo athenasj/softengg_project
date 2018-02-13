@@ -74,26 +74,25 @@
             app:layout_constraintLeft_toLeftOf="parent" />
 
         <ImageButton
-            android:id="@+id/submit_prizeTwo"
+            android:id="@+id/submit_prize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/btn_prize_selector"
-            android:background="#0000"
-            android:layout_marginLeft="15dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginTop="0dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView16"
             android:layout_marginBottom="80dp"
-            />
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="0dp"
+            android:background="#0000"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView16"
+            app:srcCompat="@drawable/btn_prize_selector" />
 
         <ImageButton
             android:id="@+id/submit_breakdownTwo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/btn_breakdown"
-            android:layout_marginRight="15dp"
+            android:layout_marginRight="16dp"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginTop="-20dp"
+            android:layout_marginTop="-39dp"
             android:background="#0000"
             app:layout_constraintTop_toBottomOf="@+id/imageView16" />
 
@@ -141,6 +140,18 @@
             android:layout_marginTop="110dp"
             android:textSize="30dp"
             android:textColor="@color/radioTint"
+            />
+
+        <ImageButton
+            android:id="@+id/btn_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/icon_home"
+            android:layout_marginLeft="10dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="10dp"
+            android:background="#0000"
             />
         />
 

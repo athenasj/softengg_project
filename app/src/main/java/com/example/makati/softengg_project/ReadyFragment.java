@@ -41,6 +41,7 @@ public class ReadyFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
+
                 PlayFragment toPlayPage = new PlayFragment();
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.fragment_container,  toPlayPage);

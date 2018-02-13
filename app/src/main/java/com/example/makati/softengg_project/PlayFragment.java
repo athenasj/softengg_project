@@ -56,12 +56,17 @@ public class PlayFragment extends Fragment {
     private static int scorePlayerOne = 0;
     private static int scorePlayerTwo = 0;
     private static boolean p1FinallyDone;
+    private static boolean isNewSet;
+    int countPlayers;
 
     public static ArrayList<String> passStrAnswerOne(){ return strAnsOne; }
     public static ArrayList<String> passStrAnswerTwo(){ return strAnsTwo; }
 
     public static int passScoreOne(){ return scorePlayerOne; }
+    public static int passScoreTwo(){ return scorePlayerTwo; }
     public static boolean getP1Done(){ return p1FinallyDone; }
+    public static boolean passIsNewSet(){ return isNewSet; }
+
 
     CountDownTimer countitdown;
     Boolean homePress = false;
@@ -88,7 +93,7 @@ public class PlayFragment extends Fragment {
 
 
         final View rootView = inflater.inflate(R.layout.fragment_play, container, false);
-
+        scorePlayerOne = 0;
         p1FinallyDone = ReadyFragment.player1Stat();
         Log.e("Play Fragment","isPlayer1Done? " + p1FinallyDone);
         timetext = rootView.findViewById(R.id.timetext);
@@ -114,6 +119,7 @@ public class PlayFragment extends Fragment {
                         if (passedIsMulti) {
 
                             if (p1FinallyDone) {
+                                p1FinallyDone = false;
                                 compareAnswers();
                                 TimeoutTwoFragment toTimeOutTwo = new TimeoutTwoFragment();
                                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
@@ -121,6 +127,7 @@ public class PlayFragment extends Fragment {
                                 transaction.commit();
                             } else {
                                 p1FinallyDone = true;
+                                isNewSet = true;
 
                                 ReadyFragment toSecondReadyFrag = new ReadyFragment();
                                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
@@ -277,7 +284,7 @@ public class PlayFragment extends Fragment {
             }
 
 
-            strContainerTwo = String.valueOf(givenSecondDigits[i]) + " " + passedOperation + " " + String.valueOf(givenFirstDigits[i] + " = " + finalAns[i] + " P1: " + firstAns + " P2: " + secondAns);
+            strContainerTwo = String.valueOf(givenSecondDigits[i]) + " " + passedOperation + " " + String.valueOf(givenFirstDigits[i] + " = " + finalAns[i] + "         P1:   " + firstAns + "     P2:   " + secondAns);
             strAnsTwo.add(strContainerTwo);
         }
     }

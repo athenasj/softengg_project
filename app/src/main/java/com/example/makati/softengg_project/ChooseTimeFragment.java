@@ -57,6 +57,7 @@ public class ChooseTimeFragment extends Fragment {
     public static int[] getSubAnswers() { return answersSub; }
     public static String passOperation(){ return operation;}
     public static boolean getP1Status(){ return isP1Done;}
+    public static boolean fromChooseTime(){ return true;}
 
 
     @Override
